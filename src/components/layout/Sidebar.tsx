@@ -46,6 +46,12 @@ const navigation = [
     role: null
   },
   {
+    title: "Financeiro",
+    url: "/financial",
+    icon: FileText,
+    role: null
+  },
+  {
     title: "Usuários",
     url: "/users",
     icon: UserPlus,

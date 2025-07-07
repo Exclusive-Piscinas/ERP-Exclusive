@@ -10,6 +10,7 @@ import { Layout } from "@/components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import Appointments from "./pages/Appointments";
+import Financial from "./pages/Financial";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="customers" element={<Customers />} />
                 <Route path="appointments" element={<Appointments />} />
+                <Route path="financial" element={<Financial />} />
               </Route>
             </Routes>
           </div>
