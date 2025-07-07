@@ -9,6 +9,7 @@ import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { Layout } from "@/components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
+import Appointments from "./pages/Appointments";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
               >
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="customers" element={<Customers />} />
+                <Route path="appointments" element={<Appointments />} />
               </Route>
             </Routes>
           </div>

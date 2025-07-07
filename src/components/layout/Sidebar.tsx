@@ -40,6 +40,12 @@ const navigation = [
     role: null
   },
   {
+    title: "Agendamentos",
+    url: "/appointments",
+    icon: Calendar,
+    role: null
+  },
+  {
     title: "Usuários",
     url: "/users",
     icon: UserPlus,
