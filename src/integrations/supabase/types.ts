@@ -128,6 +128,7 @@ export type Database = {
           service_type_id: string
           start_time: string
           status: Database["public"]["Enums"]["appointment_status"]
+          tasks_jsonb: Json | null
           technician_id: string
           updated_at: string
         }
@@ -142,6 +143,7 @@ export type Database = {
           service_type_id: string
           start_time: string
           status?: Database["public"]["Enums"]["appointment_status"]
+          tasks_jsonb?: Json | null
           technician_id: string
           updated_at?: string
         }
@@ -156,6 +158,7 @@ export type Database = {
           service_type_id?: string
           start_time?: string
           status?: Database["public"]["Enums"]["appointment_status"]
+          tasks_jsonb?: Json | null
           technician_id?: string
           updated_at?: string
         }
@@ -489,6 +492,53 @@ export type Database = {
         }
         Relationships: []
       }
+      service_templates: {
+        Row: {
+          created_at: string
+          created_by: string
+          default_tasks_jsonb: Json
+          description: string | null
+          estimated_duration: number
+          id: string
+          is_active: boolean
+          name: string
+          service_type_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          default_tasks_jsonb?: Json
+          description?: string | null
+          estimated_duration?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          service_type_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          default_tasks_jsonb?: Json
+          description?: string | null
+          estimated_duration?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          service_type_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_templates_service_type_id_fkey"
+            columns: ["service_type_id"]
+            isOneToOne: false
+            referencedRelation: "service_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       service_types: {
         Row: {
           created_at: string
@@ -519,36 +569,90 @@ export type Database = {
         }
         Relationships: []
       }
+      task_templates: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          estimated_minutes: number
+          id: string
+          is_active: boolean
+          name: string
+          requires_materials: boolean | null
+          safety_requirements: string | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          estimated_minutes?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          requires_materials?: boolean | null
+          safety_requirements?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          estimated_minutes?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          requires_materials?: boolean | null
+          safety_requirements?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       technicians: {
         Row: {
           availability: Json | null
+          certifications: Json | null
           created_at: string
+          emergency_contact: string | null
           full_name: string
+          hourly_rate: number | null
           id: string
           is_active: boolean
+          phone: string | null
           specialties: Json | null
           updated_at: string
           user_id: string
+          work_radius_km: number | null
         }
         Insert: {
           availability?: Json | null
+          certifications?: Json | null
           created_at?: string
+          emergency_contact?: string | null
           full_name: string
+          hourly_rate?: number | null
           id?: string
           is_active?: boolean
+          phone?: string | null
           specialties?: Json | null
           updated_at?: string
           user_id: string
+          work_radius_km?: number | null
         }
         Update: {
           availability?: Json | null
+          certifications?: Json | null
           created_at?: string
+          emergency_contact?: string | null
           full_name?: string
+          hourly_rate?: number | null
           id?: string
           is_active?: boolean
+          phone?: string | null
           specialties?: Json | null
           updated_at?: string
           user_id?: string
+          work_radius_km?: number | null
         }
         Relationships: []
       }

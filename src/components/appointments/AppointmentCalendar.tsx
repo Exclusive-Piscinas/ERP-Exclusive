@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, Clock, User, MapPin } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, User, MapPin, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +19,7 @@ interface Appointment {
   end_time: string;
   status: string;
   observations?: string;
+  tasks_jsonb?: any;
   customers: {
     full_name: string;
     address_city?: string;
@@ -76,6 +77,7 @@ export function AppointmentCalendar({ onRefresh }: AppointmentCalendarProps) {
           end_time,
           status,
           observations,
+          tasks_jsonb,
           customers (
             full_name,
             address_city
