@@ -62,35 +62,17 @@ export default function Dashboard() {
       value: stats.totalCustomers,
       icon: Users,
       description: "Clientes ativos no sistema",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
+      color: "text-primary",
+      bgColor: "bg-primary/10",
     },
     ...(hasRole('admin') ? [{
       title: "Usuários do Sistema",
       value: stats.totalUsers,
       icon: Building2,
       description: "Usuários cadastrados",
-      color: "text-green-600",
-      bgColor: "bg-green-100",
+      color: "text-secondary",
+      bgColor: "bg-secondary/10",
     }] : []),
-    {
-      title: "Agendamentos",
-      value: stats.activeAppointments,
-      icon: Calendar,
-      description: "Em desenvolvimento",
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-100",
-      disabled: true,
-    },
-    {
-      title: "Ordens de Serviço",
-      value: stats.pendingOrders,
-      icon: FileText,
-      description: "Em desenvolvimento",
-      color: "text-purple-600",
-      bgColor: "bg-purple-100",
-      disabled: true,
-    },
   ];
 
   return (
@@ -106,13 +88,11 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2">
         {statsCards.map((stat, index) => (
           <Card 
             key={stat.title} 
-            className={`shadow-card hover:shadow-elevated transition-all duration-300 ${
-              stat.disabled ? 'opacity-60' : 'hover:scale-105'
-            }`}
+            className="shadow-card hover:shadow-elevated transition-all duration-300 hover:scale-105"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -130,9 +110,7 @@ export default function Dashboard() {
                   stat.value.toLocaleString()
                 )}
               </div>
-              <p className={`text-xs mt-1 ${
-                stat.disabled ? 'text-muted-foreground' : 'text-muted-foreground'
-              }`}>
+              <p className="text-xs mt-1 text-muted-foreground">
                 {stat.description}
               </p>
             </CardContent>
@@ -171,27 +149,32 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card">
+        <Card className="shadow-card border-dashed border-muted-foreground/20">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold">Próximas Funcionalidades</CardTitle>
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              Próximas Funcionalidades
+              <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
+                Em breve
+              </span>
+            </CardTitle>
             <CardDescription>
-              Em desenvolvimento
+              Funcionalidades planejadas para as próximas versões
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid gap-2">
-              <div className="flex items-center gap-3 p-3 rounded-lg opacity-60">
-                <Calendar className="w-5 h-5" />
+          <CardContent className="space-y-3">
+            <div className="grid gap-3">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-dashed border-muted-foreground/20">
+                <Calendar className="w-5 h-5 text-muted-foreground" />
                 <div>
-                  <p className="font-medium">Sistema de Agendamentos</p>
-                  <p className="text-sm text-muted-foreground">Agendar visitas e serviços</p>
+                  <p className="font-medium text-muted-foreground">Sistema de Agendamentos</p>
+                  <p className="text-sm text-muted-foreground/70">Agendar visitas e serviços</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg opacity-60">
-                <FileText className="w-5 h-5" />
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border border-dashed border-muted-foreground/20">
+                <FileText className="w-5 h-5 text-muted-foreground" />
                 <div>
-                  <p className="font-medium">Ordens de Serviço</p>
-                  <p className="text-sm text-muted-foreground">Controlar execução de serviços</p>
+                  <p className="font-medium text-muted-foreground">Ordens de Serviço</p>
+                  <p className="text-sm text-muted-foreground/70">Controlar execução de serviços</p>
                 </div>
               </div>
             </div>

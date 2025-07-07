@@ -43,27 +43,17 @@ const navigation = [
     title: "Usuários",
     url: "/users",
     icon: UserPlus,
-    role: "admin"
-  },
-  {
-    title: "Agendamentos",
-    url: "/appointments",
-    icon: Calendar,
-    role: null,
-    disabled: true
-  },
-  {
-    title: "Ordens de Serviço",
-    url: "/work-orders",
-    icon: FileText,
-    role: null,
-    disabled: true
+    role: "admin",
+    disabled: true,
+    tooltip: "Em desenvolvimento"
   },
   {
     title: "Configurações",
     url: "/settings",
     icon: Settings,
-    role: "admin"
+    role: "admin",
+    disabled: true,
+    tooltip: "Em desenvolvimento"
   }
 ];
 
@@ -137,14 +127,20 @@ export function AppSidebar() {
                 {filteredNavigation.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton 
-                      asChild
+                      asChild={!item.disabled}
                       className={getNavClasses(isActive(item.url), item.disabled)}
+                      tooltip={item.disabled && collapsed ? item.tooltip : undefined}
                     >
                       {item.disabled ? (
-                        <div className="flex items-center gap-3 px-3 py-2">
+                        <div className="flex items-center gap-3 px-3 py-2 cursor-not-allowed">
                           <item.icon className="w-4 h-4" />
                           {!collapsed && (
-                            <span className="flex-1">{item.title}</span>
+                            <div className="flex-1 flex items-center justify-between">
+                              <span>{item.title}</span>
+                              <span className="text-xs text-muted-foreground/70 bg-muted/50 px-2 py-0.5 rounded-full">
+                                Em breve
+                              </span>
+                            </div>
                           )}
                         </div>
                       ) : (
