@@ -7,10 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Building2, Loader2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useAuditLog } from "@/hooks/useAuditLog";
 import { toast } from "sonner";
 
 export function AuthPage() {
   const { user, signIn, signUp, loading } = useAuth();
+  const { logLogin } = useAuditLog();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (loading) {
@@ -40,6 +42,14 @@ export function AuthPage() {
     }
 
     const { error } = await signIn(email, password);
+    
+    if (!error) {
+      // Log successful login
+      setTimeout(() => {
+        logLogin();
+      }, 1000); // Aguarda um pouco para garantir que o usuário esteja autenticado
+    }
+    
     setIsSubmitting(false);
   };
 
