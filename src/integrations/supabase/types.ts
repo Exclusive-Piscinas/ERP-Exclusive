@@ -784,6 +784,19 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_user_permissions: {
+        Args: { _user_id: string }
+        Returns: {
+          permission_name: string
+          permission_description: string
+          module: string
+          action: string
+        }[]
+      }
+      has_permission: {
+        Args: { _user_id: string; _permission_name: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _user_id: string
@@ -794,6 +807,18 @@ export type Database = {
       is_admin: {
         Args: { _user_id: string }
         Returns: boolean
+      }
+      log_audit_action: {
+        Args: {
+          _action: string
+          _table_name?: string
+          _record_id?: string
+          _old_values?: Json
+          _new_values?: Json
+          _ip_address?: unknown
+          _user_agent?: string
+        }
+        Returns: string
       }
     }
     Enums: {
