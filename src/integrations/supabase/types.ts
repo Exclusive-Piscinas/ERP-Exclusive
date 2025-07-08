@@ -710,7 +710,7 @@ export type Database = {
       payment_status: "pendente" | "pago" | "parcial" | "vencido"
       person_type: "fisica" | "juridica"
       pool_type: "fibra" | "alvenaria" | "vinil"
-      user_role: "admin" | "gerente" | "tecnico"
+      user_role: "admin" | "gerente" | "tecnico" | "financeiro" | "vendedor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -850,7 +850,7 @@ export const Constants = {
       payment_status: ["pendente", "pago", "parcial", "vencido"],
       person_type: ["fisica", "juridica"],
       pool_type: ["fibra", "alvenaria", "vinil"],
-      user_role: ["admin", "gerente", "tecnico"],
+      user_role: ["admin", "gerente", "tecnico", "financeiro", "vendedor"],
     },
   },
 } as const
