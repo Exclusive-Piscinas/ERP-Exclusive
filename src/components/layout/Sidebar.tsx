@@ -9,7 +9,9 @@ import {
   Settings, 
   LogOut,
   ChevronLeft,
-  Menu
+  Menu,
+  Shield,
+  Clock
 } from "lucide-react";
 import {
   Sidebar,
@@ -25,8 +27,17 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { PermissionGuard } from "@/components/auth/PermissionGuard";
 
-const navigation = [
+const navigation: Array<{
+  title: string;
+  url: string;
+  icon: any;
+  role?: string;
+  permission?: string;
+  disabled?: boolean;
+  tooltip?: string;
+}> = [
   {
     title: "Dashboard",
     url: "/dashboard",
@@ -52,12 +63,16 @@ const navigation = [
     role: null
   },
   {
-    title: "Usuários",
-    url: "/users",
+    title: "Gestão de Usuários",
+    url: "/users-management",
     icon: UserPlus,
-    role: "admin",
-    disabled: true,
-    tooltip: "Em desenvolvimento"
+    permission: "view_users"
+  },
+  {
+    title: "Auditoria",
+    url: "/audit-logs",
+    icon: Shield,
+    permission: "view_audit_logs"
   },
   {
     title: "Configurações",
@@ -72,7 +87,7 @@ const navigation = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
-  const { user, profile, hasRole, signOut } = useAuth();
+  const { user, profile, hasRole, hasPermission, signOut } = useAuth();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
 
@@ -91,7 +106,12 @@ export function AppSidebar() {
   };
 
   const filteredNavigation = navigation.filter(item => {
+    // Verificar role se especificada
     if (item.role && !hasRole(item.role as any)) {
+      return false;
+    }
+    // Verificar permissão se especificada
+    if (item.permission && !hasPermission(item.permission)) {
       return false;
     }
     return true;
@@ -180,7 +200,10 @@ export function AppSidebar() {
               </p>
               <p className="text-xs text-sidebar-foreground/60">
                 {hasRole('admin') ? 'Administrador' : 
-                 hasRole('gerente') ? 'Gerente' : 'Técnico'}
+                 hasRole('gerente') ? 'Gerente' : 
+                 hasRole('financeiro') ? 'Financeiro' :
+                 hasRole('vendedor') ? 'Vendedor' :
+                 hasRole('tecnico') ? 'Técnico' : 'Usuário'}
               </p>
             </div>
           )}

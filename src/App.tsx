@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import Appointments from "./pages/Appointments";
 import Financial from "./pages/Financial";
+import { UsersManagement } from "./pages/UsersManagement";
+import { AuditLogs } from "./pages/AuditLogs";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,18 @@ const App = () => (
                 <Route path="customers" element={<Customers />} />
                 <Route path="appointments" element={<Appointments />} />
                 <Route path="financial" element={<Financial />} />
+                <Route 
+                  path="users-management" 
+                  element={
+                    <ProtectedRoute requiredPermission="view_users">
+                      <UsersManagement />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="audit-logs" 
+                  element={<AuditLogs />} 
+                />
               </Route>
             </Routes>
           </div>

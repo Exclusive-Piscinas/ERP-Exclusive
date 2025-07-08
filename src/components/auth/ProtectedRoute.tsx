@@ -4,11 +4,12 @@ import { Loader2 } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: 'admin' | 'gerente' | 'tecnico';
+  requiredRole?: 'admin' | 'gerente' | 'tecnico' | 'financeiro' | 'vendedor';
+  requiredPermission?: string;
 }
 
-export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
-  const { user, loading, hasRole } = useAuth();
+export function ProtectedRoute({ children, requiredRole, requiredPermission }: ProtectedRouteProps) {
+  const { user, loading, hasRole, hasPermission } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -27,6 +28,19 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
   }
 
   if (requiredRole && !hasRole(requiredRole)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-2">Acesso Negado</h1>
+          <p className="text-muted-foreground">
+            Você não tem permissão para acessar esta página.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (requiredPermission && !hasPermission(requiredPermission)) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
